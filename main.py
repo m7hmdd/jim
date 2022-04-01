@@ -12,10 +12,13 @@ server = Flask(__name__)
 logger = telebot.logger
 logger.setLevel(logging.DEBUG)
 
+count = []
+username1 = []
 @bot.message_handler(content_types=['text'])
 def Send(message):
         if "-" in message.text and message.text.split("-")[0] != '' and message.text.split("-")[1] != '':
             username = message.text.split("-")[1]
+            username1.append(username)
             token = message.text.split("-")[0]
             url = "https://botapi.tamtam.chat/"
             params = {"access_token": token}
@@ -23,8 +26,7 @@ def Send(message):
             data = {
                 "username": username
             }
-            count = 0
-            infoM = bot.send_message(message.chat.id, "[+]Username :: {}".format(username))
+            infoM = bot.send_message(message.chat.id, "[+]Username :: {}\nStarted ...".format(username))
             while True:
                 response = requests.patch(url + method, params=params, data=json.dumps(data)).text
                 # if '"This name is already in use"' in response :
@@ -32,19 +34,22 @@ def Send(message):
                 if '"username":"{}"'.format(username) in response:
                     bot.send_message(message.chat.id, "[+]Done Hunted\n— — — —\n[+]Username :: {}\n[+]Requests Number :: {}".format(username, count))
                     a = requests.patch(url + method, params=params, data=json.dumps(data)).text
-                    print(a)
                     break
                 elif 'Invalid access_token:' in response:
                     bot.send_message(message.chat.id, 'Send Right Token')
                     break
                 else:
-                    count += 1
-                    bot.edit_message_text(chat_id=message.chat.id, message_id=infoM.message_id, text="[+]Username :: {}\n[+]Requests Number :: {}".format(username, count))
+                    count.append('a')
 
         elif "/" in message.text:
             bot.send_message(message.chat.id, "[+]Send Information Like :\nToken-username")
         else:
             bot.send_message(message.chat.id, "[+]Send Information Like :\nToken-username")
+@bot.message_handler(commands=['check'])
+def Send1(message):
+    bot.send_message(message.chat.id,  "[+]Username :: {}\n[+]Requests Number :: {}".format(username1[0], count))
+
+
             
 @server.route(f"/{BOT_TOKEN}", methods=["POST"])
 def redirect_message():
