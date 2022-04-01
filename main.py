@@ -28,7 +28,7 @@ def Send(message):
             }
             
             infoM = bot.send_message(message.chat.id, "[+]Username :: {}".format(username))
-            while True:
+            for i in range(10000):
                 response = requests.patch(url + method, params=params, data=json.dumps(data)).text
                 # if '"This name is already in use"' in response :
 
