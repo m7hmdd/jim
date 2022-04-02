@@ -1,2 +1,2 @@
-BOT_TOKEN = "1198344060:AAEZsNjFn9TGf82a6XX2gow7VXbCe3lFloY"
+BOT_TOKEN = "756623727:AAHKBpswDPh3LHg-wGld4YYE2xYUeSmoX_E"
 APP_URL = "https://bottelem.herokuapp.com/" + BOT_TOKEN
