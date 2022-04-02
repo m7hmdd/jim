@@ -6,7 +6,7 @@ import logging
 from config import *
 from flask import Flask, request
 
-BOT_TOKEN = "917905377:AAEFxE0zQFdar8XFgHXQGlSBpwcao8FC1yk"
+BOT_TOKEN = "1132931143:AAGwzukJusNzc5XjSvIMS92X8qLtGo9_Im4"
 bot = telebot.TeleBot(BOT_TOKEN)
 server = Flask(__name__)
 logger = telebot.logger
