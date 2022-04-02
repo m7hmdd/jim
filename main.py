@@ -52,10 +52,6 @@ def Send(message):
                 bot.send_message(message.chat.id, "[+]Username :: {}\n[+]Requests Number :: {}".format(item,abu_jasim[item]))
         else:
             bot.send_message(message.chat.id, "[+]Send Information Like :\nToken-username")
-        elif "/chec" in message.text:
-            bot.send_message(message.chat.id,  "[+]Username :: {}\n[+]Requests Number :: {}".format(user[0], count))
-        else:
-            bot.send_message(message.chat.id, "[+]Send Information Like :\nToken-username")
 
 
             
