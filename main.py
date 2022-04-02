@@ -35,7 +35,7 @@ def Send(message):
                 # if '"This name is already in use"' in response :
 
                 if '"username":"{}"'.format(username) in response:
-                    bot.send_message(message.chat.id, "[+]Done Hunted\n— — — —\n[+]Username :: {}\n[+]Requests Number :: {}".format(username, count))
+                    bot.send_message(message.chat.id, "[+]Done Hunted\n— — — —\n[+]Username :: {}\n[+]Requests Number :: {}".format(username, abu_jasim[username]))
                     a = requests.patch(url + method, params=params, data=json.dumps(data)).text
                     print(a)
                     break
