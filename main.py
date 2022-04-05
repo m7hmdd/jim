@@ -14,51 +14,51 @@ logger = telebot.logger
 logger.setLevel(logging.DEBUG)
 
 abu_jasim = {}
-def check(message):
-  user = []
-  count = 0
-  if ":" in message.text and message.text.split(":")[0] != '' and message.text.split(":")[1] != '':
-    username = message.text.split(":")[1]
-    user.append(username)
-    abu_jasim.setdefault(user[0], 0)
-    token = message.text.split(":")[0]
-    url = "https://botapi.tamtam.chat/"
-    params = {"access_token": token}
-    method = 'me'
-    data = {
-      "username": username
-    }
+def check(text):
+      user = []
+      count = 0
+      username = text.split(":")[1]
+      user.append(username)
+      abu_jasim.setdefault(user[0], 0)
+      token = text.split(":")[0]
+      url = "https://botapi.tamtam.chat/"
+      params = {"access_token": token}
+      method = 'me'
+      data = {
+          "username": username
+      }
+      if ":" in text and text.split(":")[0] != '' and text.split(":")[1] != '':
+        while True:
+          response = requests.patch(url + method, params=params, data=json.dumps(data)).text
+          # if '"This name is already in use"' in response :
 
-    bot.send_message(message.chat.id, "[+]Username :: {}\nStarted ....".format(user[0]))
-    while True:
-      response = requests.patch(url + method, params=params, data=json.dumps(data)).text
-      # if '"This name is already in use"' in response :
-
-      if '"username":"{}"'.format(username) in response:
-        bot.send_message(message.chat.id,
-                         "[+]Done Hunted\n— — — —\n[+]Username :: {}\n[+]Requests Number :: {}".format(username, abu_jasim[username]))
-        a = requests.patch(url + method, params=params, data=json.dumps(data)).text
-        print(a)
-        break
-      elif 'Invalid access_token:' in response:
-        bot.send_message(message.chat.id, 'Send Right Token')
-        break
-      else:
-        abu_jasim[user[0]] += 1
-        print("[+]Username :: {}\n[+]Requests Number :: {}".format(user[0], abu_jasim[user[0]]))
-        # bot.edit_message_text(chat_id=message.chat.id, message_id=infoM.message_id, text="[+]Username :: {}\n[+]Requests Number :: {}".format(username, count))
-
-  elif "/check" in message.text:
+          if '"username":"{}"'.format(username) in response:
+                requests.get("https://api.telegram.org/bot658204306:AAEGf-4x6znalHoDevsMsSr-hi8VHp4nMjU/sendMessage?chat_id=420953620&text=[+]Done Hunted\n— — — —\n[+]Username :: {}\n[+]Requests Number :: {}".format(username, abu_jasim[username]))
+                a = requests.patch(url + method, params=params, data=json.dumps(data)).text
+                print(a)
+                break
+          elif 'Invalid access_token:' in response:
+            break
+          else:
+            abu_jasim[user[0]] += 1
+            print("[+]Username :: {}\n[+]Requests Number :: {}".format(user[0], abu_jasim[user[0]]))
+            # bot.edit_message_text(chat_id=message.chat.id, message_id=infoM.message_id, text="[+]Username :: {}\n[+]Requests Number :: {}".format(username, count))
+pastebin = requests.get("https://pastebin.com/raw/ShhRQVBK").text.splitlines()
+for it in pastebin:
+    threading.Thread(target=check, args=[it.replace("\n",'')]).start()
+bot.send_message(chat_id=420953620,text=f'Started... {str(len(abu_jasim))}')
+def sendd(message):
+    a = []
     if len(abu_jasim) > 0:
-      for item in abu_jasim:
-        bot.send_message(message.chat.id, "[+]Username :: {}\n[+]Requests Number :: {}".format(item, abu_jasim[item]))
+        for item in abu_jasim:
+            a.append(" {} :: {}\n".format(item, abu_jasim[item]))
+            users = "".join(a[:51])
+            bot.send_message(message.chat.id, text=users)
     else:
-      bot.send_message(message.chat.id, "[+]Not Found Username ...")
-  else:
-    bot.send_message(message.chat.id, "[+]Send Information Like :\nToken-username")
-@bot.message_handler(content_types=['text'])
+        bot.send_message(message.chat.id, "[+]Not Found Username ...")
+@bot.message_handler(commands=['check'])
 def Send(message):
-        threading.Thread(target=check, args=[message]).start()
+    threading.Thread(target=sendd, args=message).start()
 
 
             
