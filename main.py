@@ -1,12 +1,13 @@
 import requests, user_agent, json, flask, telebot, random, os, sys, time, threading
-import telebot
+import telebot, re
+from re import findall
 from telebot import types
 from user_agent import generate_user_agent
 import logging
 from config import *
 from flask import Flask, request
 
-BOT_TOKEN = "5295940154:AAGZc95-F6VltntXMGDGIsyRb21qI8EIZwQ"
+BOT_TOKEN = "5275404040:AAG563mCkGCwKZeeiB66lCFQWMUnmPYrn1A"
 bot = telebot.TeleBot(BOT_TOKEN)
 server = Flask(__name__)
 logger = telebot.logger
