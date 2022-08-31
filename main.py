@@ -1,34 +1,3 @@
-import requests, user_agent, json, flask, telebot, random, os, sys, time
-import telebot
-import threading
-from telebot import types
-from user_agent import generate_user_agent
-import logging
-from config import *
-from flask import Flask, request
-
-BOT_TOKEN = "1132931143:AAGwzukJusNzc5XjSvIMS92X8qLtGo9_Im4"
-bot = telebot.TeleBot(BOT_TOKEN)
-server = Flask(__name__)
-logger = telebot.logger
-logger.setLevel(logging.DEBUG)
-
-abu_jasim = {}
-def check(text):
-      user = []
-      count = 0
-      username = text.split(":")[1]
-      user.append(username)
-      abu_jasim.setdefault(user[0], 0)
-      token = text.split(":")[0]
-      url = "https://botapi.tamtam.chat/"
-      params = {"access_token": token}
-      method = 'me'
-      data = {
-          "username": username
-      }
-      if ":" in text and text.split(":")[0] != '' and text.split(":")[1] != '':
-        while True:
 
 
 #token = "" # файл, содержащий 
