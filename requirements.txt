@@ -1,4 +1,3 @@
-pyTelegramBotAPI
+tambotapi
 flask
-user_agent
 requests
